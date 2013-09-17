@@ -3,6 +3,7 @@
  */
 package com.brindlewaye.xAPI.proxy;
 
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.URISyntaxException;
@@ -12,13 +13,10 @@ import java.util.UUID;
 import com.rusticisoftware.tincan.Activity;
 import com.rusticisoftware.tincan.Agent;
 import com.rusticisoftware.tincan.RemoteLRS;
-import com.rusticisoftware.tincan.RemoteLRSTest;
 import com.rusticisoftware.tincan.Statement;
-import com.rusticisoftware.tincan.StatementsResult;
 import com.rusticisoftware.tincan.TCAPIVersion;
 import com.rusticisoftware.tincan.Verb;
 import com.rusticisoftware.tincan.json.StringOfJSON;
-import com.rusticisoftware.tincan.v10x.StatementsQuery;
 
 /**
  * @author Dave
@@ -141,7 +139,10 @@ public class StatementSender {
 	}
 
 	private void LoadConfig() throws IOException {
-        InputStream is = RemoteLRSTest.class.getResourceAsStream("lrs.properties");
+		String path = System.getProperty("user.dir");
+		String props = path + "\\lrs.properties";
+        //InputStream is = RemoteLRS.class.getResourceAsStream(props);
+		InputStream is = new FileInputStream(props);
         config.load(is);
         is.close();
 	}
